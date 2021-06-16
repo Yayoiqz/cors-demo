@@ -30,6 +30,25 @@
         </button>
       </li>
     </ul>
+    <h1>响应头设置</h1>
+    <ul class="request">
+      <li>
+        <button
+          class="call-request"
+          @click="callAllowOrigin"
+        >
+          Access-Control-Allow-Origin
+        </button>
+      </li>
+      <li>
+        <button
+          class="call-request"
+          @click="callExpostHeaders"
+        >
+          Access-Control-Expose-Headers
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -57,14 +76,28 @@ export default {
     },
     callSetCredit () {
       this.instance.get('/demo/setCredit', { withCredentials: true }).then(res => {
-        console.log(res.data)
+        console.log(res)
       }).catch(e => {
         console.log(e)
       })
     },
     callWithCredit () {
       this.instance.get('/demo/withCredit', { withCredentials: true }).then(res => {
-        console.log(res.data)
+        console.log(res)
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    callAllowOrigin () {
+      this.instance.get('/demo/origin').then(res => {
+        console.log(res)
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    callExpostHeaders () {
+      this.instance.get('/demo/exposeHeaders').then(res => {
+        console.log(res)
       }).catch(e => {
         console.log(e)
       })

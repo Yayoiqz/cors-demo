@@ -53,5 +53,23 @@ app.get('/withCredit', (ctx, next) => {
     code: 200
   }
 })
-
+// Access-Control-Allow-Origin
+app.get('/origin', (ctx, next) => {
+  // ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080') // 只允许指定域名http://localhost:8080的请求
+  // ctx.set('Access-Control-Allow-Origin', 'http://localhost:8081') // 只允许指定域名http://localhost:8081的请求
+  ctx.set('Access-Control-Allow-Origin', '*') // 设置为通配符允许所有域的请求
+  ctx.body = {
+    message: 'Access-Control-Allow-Origin设置成功',
+    code: 200
+  }
+})
+// Access-Control-Expose-Headers
+app.get('/origin', (ctx, next) => {
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
+  ctx.set('Access-Control-Expose-Headers', 'X-Expose-Headers')
+  ctx.body = {
+    message: 'Access-Control-Expose-Headers设置成功',
+    code: 200
+  }
+})
 export default app
