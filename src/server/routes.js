@@ -9,10 +9,9 @@ app.options('/list', (ctx, next) => {
   ctx.set('Access-Control-Allow-Headers', 'X-Custom-Header')
   ctx.status = 200
 })
-// get /list
+// 对实际请求进行设置
 app.get('/list', (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080') // 只允许指定域名http://localhost:8080的请求
-  ctx.set('Access-Control-Allow-Headers', 'X-Custom-Header')
   ctx.body = {
     data: [{
       id: 1,
@@ -64,12 +63,28 @@ app.get('/origin', (ctx, next) => {
   }
 })
 // Access-Control-Expose-Headers
-app.get('/origin', (ctx, next) => {
+app.get('/exposeHeaders', (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
-  ctx.set('Access-Control-Expose-Headers', 'X-Expose-Headers')
+  ctx.set('Access-Control-Expose-Headers', 'X-Expose-Headers') // 未开启时浏览器无法获取自定义的请求头
+  ctx.set('X-Expose-Headers', 'I am custom header')
   ctx.body = {
     message: 'Access-Control-Expose-Headers设置成功',
     code: 200
   }
 })
+// Access-Control-Allow-Methods 要对预检请求设置
+app.options('/allowMethods', (ctx, next) => {
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
+  ctx.set('Access-Control-Allow-Methods', 'PUT')
+  ctx.status = 200
+})
+// 实际请求
+app.put('/allowMethods', (ctx, next) => {
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
+  ctx.body = {
+    message: 'Access-Control-Allow-Methods设置成功',
+    code: 200
+  }
+})
+
 export default app

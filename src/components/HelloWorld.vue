@@ -7,7 +7,7 @@
           class="call-request"
           @click="callOption"
         >
-          点我看预检请求
+          点我看预检请求|Allow-Headers
         </button>
       </li>
     </ul>
@@ -43,9 +43,17 @@
       <li>
         <button
           class="call-request"
-          @click="callExpostHeaders"
+          @click="callExposeHeaders"
         >
           Access-Control-Expose-Headers
+        </button>
+      </li>
+      <li>
+        <button
+          class="call-request"
+          @click="callAllowMethods"
+        >
+          Access-Control-Allow-Methods
         </button>
       </li>
     </ul>
@@ -95,8 +103,15 @@ export default {
         console.log(e)
       })
     },
-    callExpostHeaders () {
+    callExposeHeaders () {
       this.instance.get('/demo/exposeHeaders').then(res => {
+        console.log(res)
+      }).catch(e => {
+        console.log(e)
+      })
+    },
+    callAllowMethods () {
+      this.instance.put('/demo/allowMethods').then(res => {
         console.log(res)
       }).catch(e => {
         console.log(e)
